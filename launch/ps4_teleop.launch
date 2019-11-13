@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+        <arg name="Controller" default="PS4_WIRED" />
+        <node pkg="joy" type="joy_node" name="joy" output="screen" />
+		<node pkg="rc_mavlink_pkg" type="ps4_teleop" name="ps4_teleop" output="screen" />
+        <param name="ControllerType" type="string" value="$(arg Controller)" />
+	
+</launch>

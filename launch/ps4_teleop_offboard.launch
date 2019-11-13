@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<launch>
+
+         <!-- Args for node Offboard Example -->      
+        <arg name="targetpoint" default="5"/>
+        <arg name="initial_delay" default="10"/>
+
+        <!-- Node Offboard Example -->
+        <node pkg="offboard_example_pkg" type="offboard_example" name="offboard_example" output="screen"/>
+        <param name="TargetWaypointNBR" type="int" value="$(arg targetpoint)"/>
+        <param name="InitialDelaySec" type="int" value="$(arg initial_delay)"/>
+
+        <!-- Args for MAVLink Package -->      
+        <arg name="G_SIM_IP_address" default="127.0.0.1"/>
+        <arg name="G_SIM_port_number" default="7171"/>
+        <arg name="G_ID" default="0"/>
+        <arg name="G_URL" default="127.0.0.1:4560"/>
+        <arg name="G_url_offboard" default="127.0.0.1:14580"/>
+        <arg name="mode" default="SITL"/>
+
+        <!-- MAVLink Package Nodes-->      
+
+        <!-- Include launchfile of simulator client node
+        Pass some arguments to the included launchfile -->
+        <include file="$(find mavlink_pkg)/launch/sim_client_sitl.launch" >
+            <arg name="SIM_IP_address" value="$(arg G_SIM_IP_address)"/>
+            <arg name="SIM_port_number" value="$(arg G_SIM_port_number)"/>
+            <arg name="SIM_ID" value="$(arg G_ID)"/>
+            <arg name="url" value="$(arg G_URL)"/>
+        </include>
+  
+    <!-- Include launchfile of node: api_offboard
+    Pass some arguments to the included launchfile -->
+        <include file="$(find mavlink_pkg)/launch/APIOffboardCommander.launch" >
+            <arg name="SIM_ID" value="$(arg G_ID)" />
+            <arg name="url_offboard" value="$(arg G_url_offboard)"/>
+            <arg name="sim_mode" value="$(arg mode)"/>
+        </include>
+
+
+        <arg name="Controller" default="PS4_WIRED" />
+        <node pkg="joy" type="joy_node" name="joy" output="screen" />
+		<node pkg="rc_mavlink_pkg" type="ps4_teleop" name="ps4_teleop" output="screen" />
+        <param name="ControllerType" type="string" value="$(arg Controller)" />
+	
+</launch>
