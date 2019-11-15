@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
 	ros::Subscriber Joy_Sub_ = nh.subscribe<sensor_msgs::Joy>("joy",10,JoyCallback);
 	ros::Publisher SetVelPub_ =  nh.advertise<mavlink_pkg::SetPositionTargetLocalNED>("mavlink/set/ned_position",10);
 
-	VelCmd_.type_mask = static_cast<uint16_t>(0b0000001111000111);
+	VelCmd_.type_mask = static_cast<uint16_t>(0b0000011111000111);
 	VelCmd_.coordinate_frame = MAV_FRAME_BODY_NED;
 	VelCmd_.vx = 		0.0f;
 	VelCmd_.vy = 		0.0f;
