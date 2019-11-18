@@ -37,7 +37,7 @@ void JoyCallback(const sensor_msgs::Joy::ConstPtr& joy)
 	VelCmd_.vx=right_stick_up_;
 	VelCmd_.vy=right_stick_side_;
 	VelCmd_.vz=-left_stick_up_;
-	VelCmd_.yaw_rate=left_stick_side_;
+	VelCmd_.yaw_rate=-left_stick_side_;
 
     //CustomControl::SetCmd();
 
