@@ -2,7 +2,10 @@
 
 <launch>
         <arg name="Controller" default="PS4_WIRED" />
+        <arg name="ControllerPath" default="/dev/input/js0" />
+
         <node pkg="joy" type="joy_node" name="joy" output="screen" />
+        <param name="joy/dev" type="string" value="$(arg ControllerPath)" />
 		<node pkg="rc_mavlink_pkg" type="ps4_teleop" name="ps4_teleop" output="screen" />
         <param name="ControllerType" type="string" value="$(arg Controller)" />
 	
